@@ -3,12 +3,12 @@ header {
   border-bottom: darkgreen solid 1px;
   align-items: center;
   height: 5vh;
+  width: 100vw;
 }
 
 .title-header, .title-footer {
   color: white;
-  text-align: center;
-  margin: 0 2vh;
+  margin: 0 1vw;
 }
 
 nav {
@@ -23,7 +23,7 @@ nav {
   text-decoration: none;
 }
 
-.nav-choice:hover {
+.nav-choice:hover,.button-sign-in:hover, .button-sign-up:hover, .button-logout:hover  {
   color: #018f01;
   transition: 0.2s ease;
   transform: scale(1.1);
@@ -32,6 +32,31 @@ nav {
 
 .nav-selected{
   color: #00af00;
+}
+
+.button-sign-in, .button-sign-up, .button-logout {
+  width: 5vw;
+  padding: 5px;
+  background-color: transparent;
+  border-radius: 7px;
+  border: darkgreen solid 2px;
+  outline: none;
+  box-sizing: content-box;
+}
+
+.nav-and-buttons {
+  display: flex;
+  justify-content: space-between;
+  flex:1;
+}
+
+.buttons-and-username {
+  display: flex;
+  align-items: center;
+}
+
+.button-sign-up, .button-logout {
+  margin: 0 1vw;
 }
 
 main {

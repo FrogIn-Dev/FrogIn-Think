@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,9 @@ export class LoginComponent {
   fb = inject(FormBuilder);
   http = inject(HttpClient);
   router = inject(Router);
+  authService= inject(AuthService);
+
+  errorMessage:string | null = null;
 
   logginForm = this.fb.nonNullable.group({
     email: ['', Validators.required],
@@ -22,6 +26,14 @@ export class LoginComponent {
   })
 
   onSubmit(): void {
-    console.log("login form submitted");
+    if (this.logginForm.invalid) {
+      this.logginForm.markAllAsTouched();
+      return;
+    }
+    const { email, password } = this.logginForm.getRawValue();
+    this.authService.login(email, password).subscribe({
+      next: () => this.router.navigateByUrl('/'),
+      error: (err) => (this.errorMessage = err?.message ?? 'Registration failed'),
+    });
   }
 }

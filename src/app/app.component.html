@@ -1,27 +1,44 @@
 <header>
   <h1 class="title-header">FrogIn-Think 🐸💭</h1>
-  <nav>
-    <a routerLink="/"
-       class="nav-choice"
-       [ngClass]="{'nav-selected': router.url === '/'}">
-      Home
-    </a>
-    <a routerLink="/tutorial"
-       class="nav-choice"
-       [ngClass]="{'nav-selected': router.url.startsWith('/tutorial')}">
-      How to use ?
-    </a>
-    <a routerLink="/projects"
-       class="nav-choice"
-       [ngClass]="{'nav-selected': router.url.startsWith('/projects')}">
-      Project
-    </a>
-    <a routerLink="/account"
-       class="nav-choice"
-       [ngClass]="{'nav-selected': router.url.startsWith('/account')}">
-      Account
-    </a>
-  </nav>
+  <div class="nav-and-buttons">
+    <nav>
+      <a routerLink="/"
+         class="nav-choice"
+         [ngClass]="{'nav-selected': router.url === '/'}">
+        Home
+      </a>
+      <a routerLink="/tutorial"
+         class="nav-choice"
+         [ngClass]="{'nav-selected': router.url.startsWith('/tutorial')}">
+        How to use ?
+      </a>
+      <a routerLink="/projects"
+         class="nav-choice"
+         [ngClass]="{'nav-selected': router.url.startsWith('/projects')}">
+        Project
+      </a>
+      <a routerLink="/account"
+         class="nav-choice"
+         [ngClass]="{'nav-selected': router.url.startsWith('/account')}">
+        Account
+      </a>
+    </nav>
+    <div class="buttons-and-username">
+      @if(authService.currentUserSig() == null){
+        <button class="button-sign-in">
+          Sign In
+        </button>
+        <button class="button-sign-up">
+          Sign Up
+        </button>
+      } @else {
+        <p>{{authService.currentUserSig()?.username}}</p>
+        <button class="button-logout" (click)="logOut()">
+          Logout
+        </button>
+      }
+    </div>
+  </div>
 </header>
 <main>
   <router-outlet />

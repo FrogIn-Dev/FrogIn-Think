@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {LoginComponent} from '../login/login.component';
 import {RegisterComponent} from '../register/register.component';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-account',
@@ -13,4 +14,5 @@ import {RegisterComponent} from '../register/register.component';
 })
 export class AccountComponent {
   isConnected = false;
+  authService = inject(AuthService);
 }
