@@ -10,13 +10,14 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { DialogRef, DialogModule } from '@angular/cdk/dialog';
 
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[&!\.\-\+\*]).{8,}$/;
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, DialogModule ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
@@ -25,6 +26,8 @@ export class RegisterComponent {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
   private router = inject(Router);
+
+  dialogRef = inject<DialogRef<boolean> | null>(DialogRef, { optional: true });
 
   registerForm = this.fb.nonNullable.group(
     {
@@ -69,7 +72,10 @@ export class RegisterComponent {
     }
     const { email, username, password } = this.registerForm.getRawValue();
     this.authService.register(email, username, password).subscribe({
-      next: () => this.router.navigateByUrl('/'),
+      next: () => {
+        this.dialogRef?.close(true);
+        this.router.navigateByUrl('/');
+      },
       error: (err) => (this.errorMessage = err?.message ?? 'Registration failed'),
     });
   }

@@ -25,10 +25,10 @@
     </nav>
     <div class="buttons-and-username">
       @if(authService.currentUserSig() == null){
-        <button class="button-sign-in">
+        <button class="button-sign-in" (click)="openLogin()">
           Sign In
         </button>
-        <button class="button-sign-up">
+        <button class="button-sign-up" (click)="openRegister()">
           Sign Up
         </button>
       } @else {

@@ -1,4 +1,7 @@
 <div class="login">
+  @if (dialogRef) {
+    <button type="button" class="dialog-close" (click)="dialogRef?.close(true)">×</button>
+  }
   <h2>Already have an account ?</h2>
   <form [formGroup]="logginForm" (ngSubmit)="onSubmit()" class="login-form">
     <div class="login-input-container">

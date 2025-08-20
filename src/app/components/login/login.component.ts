@@ -3,11 +3,13 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import {DialogRef, DialogModule} from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-login',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -18,6 +20,7 @@ export class LoginComponent {
   router = inject(Router);
   authService= inject(AuthService);
 
+  dialogRef = inject<DialogRef<boolean> | null>(DialogRef, { optional: true });
   errorMessage:string | null = null;
 
   logginForm = this.fb.nonNullable.group({
@@ -32,8 +35,11 @@ export class LoginComponent {
     }
     const { email, password } = this.logginForm.getRawValue();
     this.authService.login(email, password).subscribe({
-      next: () => this.router.navigateByUrl('/'),
-      error: (err) => (this.errorMessage = err?.message ?? 'Registration failed'),
+      next: () => {
+        this.dialogRef?.close(true);
+        this.router.navigateByUrl('/');
+      },
+      error: (err) => (this.errorMessage = err?.message ?? 'login failed'),
     });
   }
 }
