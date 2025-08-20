@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+* {
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: JetBrains Mono, monospace;
+  background:#0a0e17 radial-gradient(120% 120% at 50% 0%, #0e1524 0, #070b12 60%, #05080e 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255,255,255,0.02);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}

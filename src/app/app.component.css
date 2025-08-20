@@ -1,0 +1,47 @@
+header {
+  display: flex;
+  border-bottom: darkgreen solid 1px;
+  align-items: center;
+  height: 5vh;
+}
+
+.title-header, .title-footer {
+  color: white;
+  text-align: center;
+  margin: 0 2vh;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-choice {
+  color: darkgreen;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.nav-choice:hover {
+  color: #018f01;
+  transition: 0.2s ease;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.nav-selected{
+  color: #00af00;
+}
+
+main {
+  /* 10vh -> taille du header et footer; 2px ->taille des border de header et footer*/
+  min-height: calc(100vh - 10vh - 2px);
+}
+
+footer {
+  display: flex;
+  border-top: darkgreen solid 1px;
+  align-items: center;
+  height: 5vh;
+}

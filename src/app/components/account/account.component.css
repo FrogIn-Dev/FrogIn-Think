@@ -1,0 +1,21 @@
+.title-account-not-logged {
+  text-align: center;
+  margin: 2vh 0 5vh 0;
+}
+
+.account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.login-or-register {
+  display: flex;
+}
+
+hr {
+  border: darkgreen solid 2px;
+  border-radius: 10px;
+  margin: 0 5vh;
+}

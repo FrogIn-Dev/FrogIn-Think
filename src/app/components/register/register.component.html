@@ -1,0 +1,97 @@
+<div class="register-and-rules">
+  <div class="register">
+    <h2>Would you like to register ?</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      <div class="register-input-container">
+        <input type="text" placeholder="Username" formControlName="username" class="register-input" />
+        @if (usernameCtrl.touched && usernameCtrl.hasError('minlength')) {
+          <small class="error">Minimum 5 characters.</small>
+        }
+        @if (usernameCtrl.touched && usernameCtrl.hasError('required')) {
+          <small class="error">Username is required.</small>
+        }
+
+        <input type="text" placeholder="Email" formControlName="email" class="register-input" />
+        @if (emailCtrl.touched && emailCtrl.hasError('email')) {
+          <small class="error">Invalid email.</small>
+        }
+        @if (emailCtrl.touched && emailCtrl.hasError('required')) {
+          <small class="error">Email is required.</small>
+        }
+
+        <input type="text" placeholder="Confirmed email" formControlName="confirmedEmail" class="register-input" />
+        @if (confirmedEmailCtrl.touched && registerForm.hasError('emailsNotMatch')) {
+          <small class="error">Emails do not match.</small>
+        }
+
+        <input type="password" placeholder="Password" formControlName="password" class="register-input" />
+        @if (passwordCtrl.touched && passwordCtrl.hasError('minlength')) {
+          <small class="error">Minimum 8 characters.</small>
+        }
+        @if (passwordCtrl.touched && passwordCtrl.hasError('pattern')) {
+          <small class="error">
+            Must include 1 uppercase, 1 lowercase, 1 number, and 1 special (& ! . - + *).
+          </small>
+        }
+        @if (passwordCtrl.touched && passwordCtrl.hasError('required')) {
+          <small class="error">Password is required.</small>
+        }
+
+        <input type="password" placeholder="Confirmed password" formControlName="confirmedPassword" class="register-input" />
+        @if (confirmedPasswordCtrl.touched && registerForm.hasError('passwordsNotMatch')) {
+          <small class="error">Passwords do not match.</small>
+        }
+      </div>
+
+      <div>
+        @if(registerForm.invalid) {
+          <button type="submit" class="register-button-disabled " [disabled]="registerForm.invalid">
+            Sign Up !
+          </button>
+        }@else {
+          <button type="submit" class="register-button" [disabled]="registerForm.invalid">
+            Sign Up !
+          </button>
+        }
+
+
+      </div>
+    </form>
+
+    @if (errorMessage) {
+      <div class="server-error">{{ errorMessage }}</div>
+    }
+  </div>
+
+  <div class="register-rules">
+    <h4>Here the rules to sign Up :</h4>
+    <p id="checkUsername" [class.ok]="usernameCtrl.valid" [class.ko]="usernameCtrl.invalid">
+      - Username : Minimum 5 characters ?
+    </p>
+
+    <p
+      id="checkEmail"
+      [class.ok]="emailCtrl.valid && confirmedEmailCtrl.valid && !registerForm.hasError('emailsNotMatch')"
+      [class.ko]="registerForm.hasError('emailsNotMatch') || emailCtrl.invalid || confirmedEmailCtrl.invalid"
+    >
+      - Email : Correct email format and the same ?
+    </p>
+
+    <p id="checkPassword" [class.ok]="passwordCtrl.valid" [class.ko]="passwordCtrl.invalid">
+      - Password : Minimum 8 characters including: <br />
+      &nbsp; - 1 uppercase letter<br />
+      &nbsp; - 1 lowercase letter<br />
+      &nbsp; - 1 number<br />
+      &nbsp; - 1 special character(&!.-+*)
+    </p>
+
+    <p
+      id="checkConfirmedPassword"
+      [class.ok]="!registerForm.hasError('passwordsNotMatch') && confirmedPasswordCtrl.touched"
+      [class.ko]="registerForm.hasError('passwordsNotMatch')"
+    >
+      - Confirmed Password : Same as the previous field ?
+    </p>
+  </div>
+</div>
