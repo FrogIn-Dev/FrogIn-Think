@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { DialogRef, DialogModule } from '@angular/cdk/dialog';
+import {mapFirebaseError} from '../../utils/firebase-errors';
 
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[&!\.\-\+\*]).{8,}$/;
 
@@ -28,6 +29,8 @@ export class RegisterComponent {
   private router = inject(Router);
 
   dialogRef = inject<DialogRef<boolean> | null>(DialogRef, { optional: true });
+
+  registerMsg: String = "";
 
   registerForm = this.fb.nonNullable.group(
     {
@@ -75,7 +78,7 @@ export class RegisterComponent {
 
     this.authService.register(username, email, password).subscribe({
       next: () => { this.dialogRef?.close(true); /* ... */ },
-      error: (err) => { this.errorMessage = err?.message ?? 'Registration failed'; }
+      error: (err) => { this.registerMsg = mapFirebaseError(err) }
     });
   }
 

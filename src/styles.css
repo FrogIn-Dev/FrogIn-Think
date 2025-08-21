@@ -120,3 +120,12 @@ h1, h2, h3, h4, h5, h6 {
 :where(.auth-dialog) .server-error {
   color: #f87171;
 }
+
+.ok { color: #16a34a }
+.ko { color: #dc2626 }
+.error { color:#dc2626; font-size:.9rem }
+
+.warning {
+  color: #dc2626;
+  margin: 0 1vw;
+}

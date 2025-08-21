@@ -40,3 +40,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Ne pas committer tes .env.local locaux
+.envs
+.env.local
+.env.*.local

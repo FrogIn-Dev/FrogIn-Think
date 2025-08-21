@@ -1,17 +1,98 @@
-<div class="account">
-  @if(authService.currentUserSig() == null) {
+
+@if (authService.currentUserSig() == null) {
+  <div class="account-not-logged">
     <div class="title-account-not-logged">
       <h2>You are not yet logged in to start posting your ideas.</h2>
       <h3>No problem, you can log in here or create an account!</h3>
     </div>
     <div class="login-or-register">
       <app-login></app-login>
-      <hr>
+      <hr />
       <app-register></app-register>
     </div>
-  } @else {
+  </div>
+} @else {
+  <div class="account-logged">
+    <h2 class="title-account-logged">Account of {{authService.currentUserSig()?.username}}</h2>
+    <h3 class="title-account-logged">Here you can see all info about your account !</h3>
+    <div class="main-info-account">
 
-  }
-</div>
+      <!-- Username -->
+      <section class="card">
+        <h3>Change username ({{authService.currentUserSig()?.username}})</h3>
+        <form [formGroup]="usernameForm" (ngSubmit)="saveUsername()" class="username-change">
+          <input type="text" formControlName="username" placeholder="New username" class="input-account"/>
+          @if (usernameForm.controls.username.touched && usernameForm.controls.username.invalid) {
+            <small class="error">Min 5 characters</small>
+          }
+          @if (usernameForm.invalid) {
+            <button type="submit" [disabled]="usernameForm.invalid" class="input-button input-button-disabled">Save username</button>
+          } @else {
+            <button type="submit" class="input-button" style="cursor: pointer">Save username</button>
+          }
+          @if(usernameMsg) { <p class="status">{{ usernameMsg }}</p> }
+        </form>
+      </section>
 
+      <!-- Email -->
+      <section class="card">
+        <h3>Change email ({{authService.currentUserSig()?.email}})</h3>
+        <form [formGroup]="emailForm" (ngSubmit)="saveEmail()" class="email-change">
+          <input type="email" formControlName="email" placeholder="New email" class="input-account"/>
+          <input type="email" formControlName="confirmEmail" placeholder="Confirm new email" class="input-account"/>
+          @if(emailForm.hasError('emailsNotMatch') && (emailForm.touched || emailForm.dirty)) {
+            <small class="error">Emails do not match</small>
+          }
+          <input type="password" formControlName="currentPassword" placeholder="Current password (for security)" class="input-account"/>
+          @if(emailForm.invalid) {
+            <button type="submit" [disabled]="emailForm.invalid" class="input-button input-button-disabled">Save email</button>
+          } @else {
+            <button type="submit" class="input-button" style="cursor: pointer">Save email</button>
+          }
+          @if (emailMsg) { <p class="status">{{ emailMsg }}</p> }
+        </form>
+      </section>
+
+      <!-- Password -->
+      <section class="card">
+        <h3>Change password</h3>
+        <form [formGroup]="passwordForm" (ngSubmit)="savePassword()" class="password-change">
+          <input type="password" formControlName="currentPassword" placeholder="Current password" class="input-account"/>
+          <input type="password" formControlName="newPassword" placeholder="New password" class="input-account"/>
+          @if(passwordForm.controls.newPassword.touched && passwordForm.controls.newPassword.hasError('pattern')) {
+            <small class="error">1 upper, 1 lower, 1 number, 1 special (& ! . - + *), min 8</small>
+          }
+          <input type="password" formControlName="confirmPassword" placeholder="Confirm new password" class="input-account"/>
+          @if(passwordForm.hasError('passwordsNotMatch') && (passwordForm.touched || passwordForm.dirty)) {
+            <small class="error">Passwords do not match</small>
+          }
+          @if (passwordForm.invalid) {
+            <button type="submit" [disabled]="passwordForm.invalid" class="input-button input-button-disabled">Save password</button>
+          } @else {
+            <button type="submit" class="input-button" style="cursor: pointer">Save password</button>
+          }
+
+          @if (passwordMsg) { <p class="status"> {{ passwordMsg }} </p> }
+        </form>
+      </section>
+
+      <!-- Delete Account -->
+      <section class="card danger">
+        <h3>Delete account</h3>
+        <p class="warning">This action is irreversible. All your data may be removed.</p>
+
+        <form [formGroup]="deleteForm" (ngSubmit)="deleteAccount()" class="delete-account">
+          <input type="password" formControlName="currentPassword" placeholder="Type your current password" class="input-account" />
+          @if (deleteForm.invalid || deleting) {
+            <button type="submit" class="input-button input-button-disabled" [disabled]="deleteForm.invalid || deleting"> {{ deleting ? 'Deleting…' : 'Delete my account' }} </button>
+          } @else {
+            <button type="submit" class="input-button " style="cursor: pointer"> {{ deleting ? 'Deleting…' : 'Delete my account' }} </button>
+          }
+
+          @if (deleteMsg) { <p class="status">{{ deleteMsg }}</p> }
+        </form>
+      </section>
+    </div>
+  </div>
+}
 

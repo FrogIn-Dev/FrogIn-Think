@@ -3,7 +3,7 @@
   margin: 2vh 0 5vh 0;
 }
 
-.account {
+.account-not-logged {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,4 +18,47 @@ hr {
   border: darkgreen solid 2px;
   border-radius: 10px;
   margin: 0 5vh;
+}
+
+.title-account-logged {
+  margin: 1vh 0;
+  text-align: center;
+}
+
+.main-info-account {
+  display: flex;
+  flex-direction: column;
+  margin: 2vh 0 0 1vw;
+}
+
+.card, .username-change, .email-change, .password-change {
+  display: flex;
+  align-items: center;
+}
+
+.input-account,.input-button {
+  width: 10vw;
+  padding: 5px;
+  background-color: transparent;
+  border-radius: 7px;
+  border: darkgreen solid 2px;
+  margin: 1vh 0;
+  outline: none;
+  box-sizing: content-box;
+}
+
+.input-button:hover {
+  border-color: #00af00;
+  transition: 0.2s ease;
+  transform: scale(1.05);
+
+}
+
+.input-button-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.input-account {
+  margin: 0 0.5vw;
 }

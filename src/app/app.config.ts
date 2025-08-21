@@ -6,16 +6,8 @@ import {provideHttpClient} from '@angular/common/http';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {getAuth, provideAuth} from '@angular/fire/auth';
 import {getFirestore, provideFirestore} from '@angular/fire/firestore';
-import {get} from '@angular/fire/database';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBs3BNYuTfa9yjC1yLtJkJPMH3DKA-4yBM",
-  authDomain: "frogin-think.firebaseapp.com",
-  projectId: "frogin-think",
-  storageBucket: "frogin-think.firebasestorage.app",
-  messagingSenderId: "24212204930",
-  appId: "1:24212204930:web:ceec8d527e3df6849c339b"
-};
+import { environment } from '../environments/environment';
 
 
 export const appConfig: ApplicationConfig = {
@@ -23,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
   ]

@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {DialogRef, DialogModule} from '@angular/cdk/dialog';
+import {mapFirebaseError} from '../../utils/firebase-errors';
 
 @Component({
   selector: 'app-login',
@@ -47,10 +48,7 @@ export class LoginComponent {
           this.router.navigateByUrl('/');
         }
       },
-      error: (err) => {
-        console.error('Login failed:', err);
-        this.errorMessage = err?.message ?? 'Login failed';
-      }
+      error: (err) => {this.errorMessage = mapFirebaseError(err);}
     });
   }
 
