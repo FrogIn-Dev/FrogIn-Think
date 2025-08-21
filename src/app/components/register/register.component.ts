@@ -65,20 +65,20 @@ export class RegisterComponent {
 
   errorMessage: string | null = null;
 
-  onSubmit(): void {
-    if (this.registerForm.invalid) {
-      this.registerForm.markAllAsTouched();
-      return;
-    }
-    const { email, username, password } = this.registerForm.getRawValue();
-    this.authService.register(email, username, password).subscribe({
-      next: () => {
-        this.dialogRef?.close(true);
-        this.router.navigateByUrl('/');
-      },
-      error: (err) => (this.errorMessage = err?.message ?? 'Registration failed'),
+  onSubmit() {
+    if (this.registerForm.invalid) { this.registerForm.markAllAsTouched(); return; }
+
+    const raw = this.registerForm.getRawValue();
+    const username = (raw.username ?? '').trim();
+    const email = (raw.email ?? '').trim().toLowerCase();
+    const password = (raw.password ?? '').trim();
+
+    this.authService.register(username, email, password).subscribe({
+      next: () => { this.dialogRef?.close(true); /* ... */ },
+      error: (err) => { this.errorMessage = err?.message ?? 'Registration failed'; }
     });
   }
+
 }
 
 /* ---- Validateurs cross-field ---- */

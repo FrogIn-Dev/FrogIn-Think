@@ -5,7 +5,7 @@ import {TutorialComponent} from './components/tutorial/tutorial.component';
 import {HomeComponent} from './components/home/home.component';
 
 export const routes: Routes = [
-  {path: 'home', component: HomeComponent},
+  {path: '', component: HomeComponent},
   {path: 'tutorial', component: TutorialComponent},
   {path: 'projects', component: ProjectsComponent},
   {path: 'projects/:id', component: ProjectsComponent},

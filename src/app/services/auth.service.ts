@@ -1,39 +1,73 @@
-import {inject, Injectable, signal} from '@angular/core';
+// src/app/services/auth.service.ts
+import { inject, Injectable, signal } from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, signOut,
+  signInWithEmailAndPassword,
+  signOut,
   updateProfile,
   user
 } from '@angular/fire/auth';
-import {from, Observable} from 'rxjs';
-import {UserInterface} from '../data/user.interface';
+import {
+  Firestore,
+  doc,
+  setDoc,
+  serverTimestamp,
+  docData
+} from '@angular/fire/firestore';
+import { from, Observable } from 'rxjs';
+import { UserInterface } from '../data/user.interface';
 
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  firebaseAuth = inject(Auth)
+  private firebaseAuth = inject(Auth);
+  private firestore = inject(Firestore);
   user$ = user(this.firebaseAuth);
-  currentUserSig = signal<UserInterface | null | undefined>(undefined);
 
-  register(email: string, username: string, password: string): Observable<void> {
+  // Optionnel: expose l'user courant si tu veux lier ça à l’UI
+  currentUserSig = signal<UserInterface | null>(null);
+
+  // Inscription + création du document Firestore users/{uid}
+  // AuthService.register (extrait)
+  register(username: string, email: string, password: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password)
-      .then(response => updateProfile(response.user, {displayName: username}));
+      .then(async ({ user }) => {
+        await updateProfile(user, { displayName: username });
 
-    return from(promise)
+        try {
+          const userRef = doc(this.firestore, `users/${user.uid}`);
+          await setDoc(userRef, {
+            uid: user.uid,
+            email,
+            username,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+          }, { merge: true });
+        } catch (err) {
+          console.error('⚠️ Firestore write failed:', err);
+          // on continue quand même, pas de throw
+        }
+      });
+
+    return from(promise);
   }
 
+
+
+  // Connexion
   login(email: string, password: string): Observable<void> {
-    const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password)
-      .then(() => {});
-
-    return from(promise)
+    const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password).then(() => {});
+    return from(promise);
   }
 
-  logout():Observable<void> {
-    const promise = signOut(this.firebaseAuth);
-    return from(promise)
+  // Déconnexion
+  logout(): Observable<void> {
+    return from(signOut(this.firebaseAuth));
+  }
+
+  // (Optionnel) Récupérer les données Firestore du user connecté
+  userDoc$(uid: string) {
+    const ref = doc(this.firestore, `users/${uid}`);
+    return docData(ref, { idField: 'uid' }) as unknown as Observable<UserInterface & { uid: string }>;
   }
 }

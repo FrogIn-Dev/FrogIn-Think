@@ -5,6 +5,7 @@ import {AuthService} from './services/auth.service';
 import {RegisterComponent} from './components/register/register.component';
 import {LoginComponent} from './components/login/login.component';
 import { Dialog } from '@angular/cdk/dialog';
+import {of, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,17 +19,23 @@ export class AppComponent implements OnInit {
   private dialog = inject(Dialog);
 
   ngOnInit() {
-    this.authService.user$.subscribe(user => {
-      if (user) {
-        this.authService.currentUserSig.set({
-          email: user.email!,
-          username :user.displayName!
-        });
-      } else {
-        this.authService.currentUserSig.set(null);
-      }
-      console.log(this.authService.currentUserSig());
-    })
+    this.authService.user$
+      .pipe(
+        switchMap(u => {
+          if (!u) return of(null);
+          return this.authService.userDoc$(u.uid);
+        })
+      )
+      .subscribe(userDoc => {
+        if (userDoc) {
+          this.authService.currentUserSig.set({
+            email: userDoc.email,
+            username: userDoc.username
+          });
+        } else {
+          this.authService.currentUserSig.set(null);
+        }
+      });
   }
 
   openLogin() {

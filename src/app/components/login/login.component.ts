@@ -28,18 +28,31 @@ export class LoginComponent {
     password: ['', Validators.required]
   })
 
-  onSubmit(): void {
+  onSubmit() {
     if (this.logginForm.invalid) {
       this.logginForm.markAllAsTouched();
       return;
     }
+
+    this.errorMessage = null;
     const { email, password } = this.logginForm.getRawValue();
-    this.authService.login(email, password).subscribe({
+    const normalizedEmail = (email ?? '').trim().toLowerCase();
+    const normalizedPassword = (password ?? '').trim();
+
+    this.authService.login(normalizedEmail, normalizedPassword).subscribe({
       next: () => {
-        this.dialogRef?.close(true);
-        this.router.navigateByUrl('/');
+        if (this.dialogRef) {
+          this.dialogRef.close(true);
+        } else {
+          this.router.navigateByUrl('/');
+        }
       },
-      error: (err) => (this.errorMessage = err?.message ?? 'login failed'),
+      error: (err) => {
+        console.error('Login failed:', err);
+        this.errorMessage = err?.message ?? 'Login failed';
+      }
     });
   }
+
+
 }

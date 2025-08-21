@@ -91,7 +91,7 @@
 
     <p
       id="checkConfirmedPassword"
-      [class.ok]="!registerForm.hasError('passwordsNotMatch') && confirmedPasswordCtrl.touched"
+      [class.ok]="!registerForm.hasError('passwordsNotMatch')"
       [class.ko]="registerForm.hasError('passwordsNotMatch')"
     >
       - Confirmed Password : Same as the previous field ?
