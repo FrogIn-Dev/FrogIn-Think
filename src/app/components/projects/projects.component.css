@@ -1,0 +1,29 @@
+.title-project {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list-project {
+  display: flex;
+}
+
+.input-project {
+  padding: 5px;
+  background-color: transparent;
+  border-radius: 7px;
+  border: darkgreen solid 2px;
+  margin: 1vh 0;
+  outline: none;
+  color: green;
+  font-size: larger;
+  box-sizing: content-box;
+}
+
+.input-project:hover {
+  border-color: #00af00;
+  color: #00af00;
+  transition: 0.2s ease;
+  transform: scale(1.05);
+  cursor: pointer;
+}

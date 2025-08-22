@@ -29,14 +29,11 @@
   <div class="recent-project">
     <h2>Recent project</h2>
     <div class="recent-project-cards">
-      <div class="card">
-        <h3 class="title-card">Anti-Procrasti12345678910</h3>
-        <p>Modified: </p>
-        <p>Collab: </p>
-        <p>Think completed: </p>
-        <button class="button-card">Go to project</button>
-      </div>
-
+      @for (project of projects$ | async; track project.id) {
+        <app-project-card [project]="project"></app-project-card>
+      } @empty {
+        <div>No project created. Try to create one !</div>
+      }
     </div>
   </div>
 }

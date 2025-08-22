@@ -1,6 +1,6 @@
 <div class="login">
   @if (dialogRef) {
-    <button type="button" class="dialog-close" (click)="dialogRef?.close(true)">×</button>
+    <button type="button" class="dialog-close" (click)="dialogRef.close(true)">×</button>
   }
   <h2>Already have an account ?</h2>
   <form [formGroup]="logginForm" (ngSubmit)="onSubmit()" class="login-form">
@@ -8,15 +8,9 @@
       <input type="text" placeholder="Email" formControlName="email" class="login-input">
       <input type="password" placeholder="Password" formControlName="password" class="login-input">
     </div>
-
-    @if (errorMessage) {
-      <p class="error">{{ errorMessage }}</p>
-    }
-
+    @if (errorMessage) {<p class="error">{{ errorMessage }}</p>}
     <div>
       <button type="submit" class="login-button">Sign It !</button>
     </div>
   </form>
 </div>
-
-

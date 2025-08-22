@@ -1,25 +1,3 @@
-.title-account-not-logged {
-  text-align: center;
-  padding-bottom: 5vh;
-}
-
-.account-not-logged {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-}
-
-.login-or-register {
-  display: flex;
-}
-
-hr {
-  border: darkgreen solid 2px;
-  border-radius: 10px;
-  margin: 0 5vh;
-}
-
 .title-account-logged {
   margin: 1vh 0;
   text-align: center;

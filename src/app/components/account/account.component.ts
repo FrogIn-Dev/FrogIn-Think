@@ -7,6 +7,7 @@ import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import {ActivatedRoute} from '@angular/router';
 import {mapFirebaseError} from '../../utils/firebase-errors';
+import {NotConnectedComponent} from '../not-connected/not-connected.component';
 
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[&!\.\-\+\*]).{8,}$/;
 
@@ -28,7 +29,7 @@ function passwordsMatch(): ValidatorFn {
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoginComponent, RegisterComponent],
+  imports: [CommonModule, ReactiveFormsModule, NotConnectedComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })

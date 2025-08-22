@@ -15,43 +15,6 @@
   margin-top: 2vh;
 }
 
-.card {
-  width: 16vw;
-  height: 10vw;
-  background-color: rgba(0,0,0,0.1);
-  border-radius: 10px;
-  border: 1px solid #00af00;
-  margin: 0 1vh
-}
-
-.title-card {
-  text-align: center;
-  padding: 5px 0;
-  border-bottom: 1px solid #00af00;
-}
-
-.card > p {
-  margin: 10px 0 0 10px;
-}
-
-.button-card {
-  width: 100%;
-  border-top: 1px solid #00af00;
-  border-bottom: none;
-  border-left: none;
-  border-right: none;
-  outline: transparent;
-  background-color: transparent;
-  margin-top: 5px;
-  padding-top: 10px;
-  font-size: 20px;
-}
-
-.button-card:hover {
-  color: #00af00;
-  transition: 0.2s ease;
-  cursor: pointer;
-}
 
 .input-home {
   padding: 5px;

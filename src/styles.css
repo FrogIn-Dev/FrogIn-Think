@@ -9,15 +9,16 @@
 body {
   font-family: JetBrains Mono, monospace;
   background:#0a0e17 radial-gradient(120% 120% at 50% 0%, #0e1524 0, #070b12 60%, #05080e 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
 }
 
 .screen {
   width: 100%;
   height: 100%;
   background: rgba(255,255,255,0.02);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -41,6 +42,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Donne un style "carte" à tes composants quand ils sont dans la modale */
 :where(.auth-dialog) .login,
+:where(.auth-dialog) .project-created-form,
 :where(.auth-dialog) .register-and-rules {
   position: relative;
   margin: 0;   /* le Dialog centre déjà */
@@ -51,7 +53,8 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 16px;
 }
 
-:where(.auth-dialog) .login {
+:where(.auth-dialog) .login,
+:where(.auth-dialog) .project-created-form {
   width: min(450px, 92vw);
 }
 
@@ -75,7 +78,8 @@ h1, h2, h3, h4, h5, h6 {
 
 :where(.auth-dialog) button.login-button,
 :where(.auth-dialog) button.register-button,
-:where(.auth-dialog) button.register-button-disabled {
+:where(.auth-dialog) button.register-button-disabled,
+:where(.auth-dialog) button.project-button {
   background: #14532d;
   color: #e5e7eb;
   border: 1px solid #166534;
@@ -88,6 +92,7 @@ h1, h2, h3, h4, h5, h6 {
   cursor: not-allowed;
 }
 :where(.auth-dialog) button.login-button:hover,
+:where(.auth-dialog) button.project-button,
 :where(.auth-dialog) button.register-button:hover {
   background: #166534;
 }
@@ -125,7 +130,4 @@ h1, h2, h3, h4, h5, h6 {
 .ko { color: #dc2626 }
 .error { color:#dc2626; font-size:.9rem }
 
-.warning {
-  color: #dc2626;
-  margin: 0 1vw;
-}
+.warning { color: #dc2626; margin: 0 1vw; }

@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "env:dev": "ENV_FILE=.env.local node scripts/generate-env.mjs",
+    "prebuild": "node scripts/generate-env.mjs",
+    "start": "npm run env:dev && ng serve",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -38,12 +40,5 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.8.3"
-  },
-  "scripts": {
-    "env:dev": "ENV_FILE=.env.local node scripts/generate-env.mjs",
-    "prebuild": "node scripts/generate-env.mjs",
-    "start": "npm run env:dev && ng serve",
-    "build": "ng build --configuration production"
   }
-
 }

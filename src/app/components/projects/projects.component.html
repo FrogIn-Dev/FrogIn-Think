@@ -1,1 +1,16 @@
-<p>projects works!</p>
+@if (authService.currentUserSig() == null) {
+  <app-not-connected></app-not-connected>
+} @else {
+  <div class="title-project">
+    <h1>Project list</h1>
+    <h2>Want to create a project ?</h2>
+    <button class="input-project" (click)="openProjectCreation()">Start a new project</button>
+  </div>
+  <div class="list-project">
+    @for (project of projects$ | async; track project.id) {
+      <app-project-card [project]="project" [canModify]="true"></app-project-card>
+    } @empty {
+      <div>No project created. Try to create one !</div>
+    }
+  </div>
+}

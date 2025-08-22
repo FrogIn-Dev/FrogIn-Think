@@ -1,0 +1,15 @@
+<div class="project-created-form">
+  @if (dialogRef) {
+    <button type="button" class="dialog-close" (click)="dialogRef.close(true)">×</button>
+  }
+  <h2>Create a new project ! 🐸💭</h2>
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="project-form">
+    <div class="project-input-container">
+      <input type="text" placeholder="Title" formControlName="title" class="project-input">
+    </div>
+    @if (errorMessage) { <p class="error">{{ errorMessage }}</p>}
+    <div>
+      <button type="submit" class="project-button">Sign It !</button>
+    </div>
+  </form>
+</div>

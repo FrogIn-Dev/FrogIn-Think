@@ -1,0 +1,12 @@
+<div class="card">
+  <h3 class="title-card">{{ project.title }}</h3>
+  <p>Modified: {{ project.updatedAt.toDate() | date:'short' }}</p>
+  <p>Collab: {{ project.collab.length != 0 ? 'Yes' : 'No' }}</p>
+  <p>Think completed: {{ project.done ? 'Yes' : 'No'}}</p>
+  <div class="buttons-card">
+    <button class="button-card">Go to project</button>
+    @if(canModify) {<button class="button-card">Modify</button>}
+
+  </div>
+
+</div>

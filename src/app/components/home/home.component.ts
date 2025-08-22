@@ -4,11 +4,17 @@ import {RouterLink} from '@angular/router';
 import {LoginComponent} from '../login/login.component';
 import {RegisterComponent} from '../register/register.component';
 import { Dialog } from '@angular/cdk/dialog';
+import {AsyncPipe} from '@angular/common';
+import {ProjectCardComponent} from '../project-card/project-card.component';
+import {filter, switchMap} from 'rxjs/operators';
+import {ProjectService} from '../../services/project.service';
 
 @Component({
   selector: 'app-home',
   imports: [
-    RouterLink
+    RouterLink,
+    AsyncPipe,
+    ProjectCardComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -16,6 +22,7 @@ import { Dialog } from '@angular/cdk/dialog';
 export class HomeComponent {
   authService = inject(AuthService);
   private dialog = inject(Dialog);
+  private projects = inject(ProjectService);
 
   openLogin() {
     this.dialog.open(LoginComponent, {
@@ -32,4 +39,9 @@ export class HomeComponent {
       disableClose: false
     });
   }
+
+  projects$ = this.authService.user$.pipe(
+    filter(u => !!u),
+    switchMap(u => this.projects.userProjects$(u!.uid))
+  );
 }
