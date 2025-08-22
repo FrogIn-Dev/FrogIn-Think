@@ -1,0 +1,77 @@
+.title-home {
+  text-align: center;
+  margin-bottom: 2vh;
+}
+
+.recent-project {
+ display: flex;
+  flex-direction: column;
+  margin: 2vh 0 2vh 2vw;
+}
+
+.recent-project-cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2vh;
+}
+
+.card {
+  width: 16vw;
+  height: 10vw;
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 10px;
+  border: 1px solid #00af00;
+  margin: 0 1vh
+}
+
+.title-card {
+  text-align: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #00af00;
+}
+
+.card > p {
+  margin: 10px 0 0 10px;
+}
+
+.button-card {
+  width: 100%;
+  border-top: 1px solid #00af00;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  outline: transparent;
+  background-color: transparent;
+  margin-top: 5px;
+  padding-top: 10px;
+  font-size: 20px;
+}
+
+.button-card:hover {
+  color: #00af00;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.input-home {
+  padding: 5px;
+  background-color: transparent;
+  border-radius: 7px;
+  border: darkgreen solid 2px;
+  margin: 1vh 0;
+  outline: none;
+  color: green;
+  text-decoration: none;
+}
+
+.input-home:hover {
+  border-color: #00af00;
+  color: #00af00;
+  transition: 0.2s ease;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.features, .before-start,.show-tutorial {
+  margin: 1vh 1vw;
+}

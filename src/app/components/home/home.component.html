@@ -1,1 +1,42 @@
-<p>home works!</p>
+@if (authService.currentUserSig() == null) {
+  <h1 class="title-home">Welcome to FrogIn-Think 🐸💭</h1>
+  <h2 class="title-home">Create canvases to organize your ideas more effectively.</h2>
+  <div class="features">
+    <h1>What can you do ?</h1>
+    <p>
+      🎯 Create a canvas: structure ideas with blocks (text, lists, links, tags). <br>
+      🗂️ Organize by projects: group canvases by topic. <br>
+      🤝 Collaborate (coming soon): share and co-edit. <br>
+      🔒 Privacy first: projects are private by default. <br>
+    </p>
+  </div>
+  <div class="before-start">
+    <h1>Before you start</h1>
+    <p>You need to be signed in to create, save, and manage projects.<br>
+    Don’t have an account yet? Create one in seconds.</p>
+    <button class="input-home" (click)="openLogin()">Sign In</button>
+    <button class="input-home" (click)="openRegister()">Sign Up</button>
+  </div>
+  <div class="show-tutorial">
+    <h1>New here ?</h1>
+    <p>Read the <b>“How To Use”</b> guide to learn the basics in 2 minutes.</p>
+    <button routerLink="/tutorial" class="input-home">How to use</button>
+  </div>
+
+}@else {
+  <h1 class="title-home">Welcome back {{authService.currentUserSig()?.username}} 👋</h1>
+
+  <div class="recent-project">
+    <h2>Recent project</h2>
+    <div class="recent-project-cards">
+      <div class="card">
+        <h3 class="title-card">Anti-Procrasti12345678910</h3>
+        <p>Modified: </p>
+        <p>Collab: </p>
+        <p>Think completed: </p>
+        <button class="button-card">Go to project</button>
+      </div>
+
+    </div>
+  </div>
+}
